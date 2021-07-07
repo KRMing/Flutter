@@ -11,15 +11,29 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   int counter = 0;
 
+  void getData() async {
+    
+    // simulate network request for a username
+    await Future.delayed(Duration(seconds: 3), () { // same as async in swift
+      print('yoshi');
+
+    });
+
+    await Future.delayed(Duration(seconds: 2), () {
+      print('mario');
+    });
+
+    print('something');
+  }
+  
   @override
   void initState() {
     super.initState();
-    print('initState function ran');
+    getData();
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build function ran');
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar( // automatically sets a back arrow to the navigation bar, good for transitions
