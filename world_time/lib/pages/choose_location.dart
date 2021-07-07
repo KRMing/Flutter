@@ -8,8 +8,18 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+
+  int counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print('initState function ran');
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('build function ran');
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar( // automatically sets a back arrow to the navigation bar, good for transitions
@@ -18,7 +28,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
         centerTitle: true,
         elevation: 0,
       ),
-      body:Text('choose location screen'),
+      body: ElevatedButton.icon(
+        onPressed: () {
+          setState(() {
+            counter += 1;
+          });
+        },
+        label: Text('counter is ${counter}'),
+        icon: Icon(Icons.smart_button),
+      ),
 
 
     );
