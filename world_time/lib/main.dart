@@ -4,7 +4,7 @@ import 'package:world_time/pages/loading.dart';
 import 'package:world_time/pages/choose_location.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/home', // overrides the first start point of the route (home is incapable of this)
+  initialRoute: '/', // overrides the first start point of the route (home is incapable of this)
   routes: {
     '/': (context) => Loading(),
     '/home': (context) => Home(),
