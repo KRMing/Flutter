@@ -33,9 +33,8 @@ class WorldTime {
       isDaytime = 5 < now.hour && now.hour < 17 ? true: false;
       time = DateFormat.jm().format(now);
     }
-    catch (error) {
-
-      print('caught: error: ${error}');
+    catch (e) {
+      print('caught: error: ${e}');
       time = 'could not get time variable';
     }
   }
