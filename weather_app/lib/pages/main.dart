@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../api/api_manager.dart';
 
 void main() {
   runApp(
@@ -9,13 +10,26 @@ void main() {
 }
 
 class WeatherApp extends StatefulWidget {
-  const WeatherApp({Key? key}) : super(key: key);
+
 
   @override
   _WeatherAppState createState() => _WeatherAppState();
 }
 
 class _WeatherAppState extends State<WeatherApp> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    ApiManager getapi = ApiManager(id: '1835847');
+    getapi.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
