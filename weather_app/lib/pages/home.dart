@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
                         style: TextStyle(
                           fontFamily: 'Jua',
                           fontSize: 90,
-                          color: Colors.white,
+                          color: Colors.white
                         )),
                   ]
                 )
