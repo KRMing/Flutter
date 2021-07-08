@@ -37,7 +37,7 @@ class _LoadingState extends State<Loading> {
     try {
       iconImage = await Image.network(
         apiData.currentData.iconUrl,
-        color: Colors.white,
+        scale: 0.75,
       );
     }
     catch (error) {

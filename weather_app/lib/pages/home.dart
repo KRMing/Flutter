@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
                   child: CircleAvatar(
                     backgroundColor: Colors.blue[200],
                     child: weatherData['iconImage'],
+                    radius: 50,
                 ),
               ),
               Center(
@@ -119,6 +120,9 @@ class _HomeState extends State<Home> {
                       ),
                     ]
                 ),
+              ),
+              ListView(
+
               ),
             ],
           ),
