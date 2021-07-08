@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../api/api_manager.dart';
+import 'package:geolocator/geolocator.dart';
+import '../utils/geolocator.dart';
+import '../utils/api_manager.dart';
 import '../types/mappings.dart';
 
 class Loading extends StatefulWidget {
@@ -12,28 +14,30 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
-  void fetchData() async {
+  void prepareLoadData() async {
 
-    ApiManager apiData = ApiManager(id: '1835847');
+    GeoLocator location = GeoLocator();
+    await location.getPosition();
+
+    ApiManager apiData = ApiManager(location.lat, location.lon);
     await apiData.fetch();
 
     // get location translation
-    String location;
+    String currentLocation;
     try {
-      location = Mappings.city[apiData.location!]!;
+      currentLocation = Mappings.city['Seoul']!;
     }
     catch (error) {
       print('SYSALERT - ERROR: error during location translation. Error: ${error}');
-      location = 'LOCATION: NULL';
+      currentLocation = 'LOCATION: NULL';
     };
 
     // get image
     Image iconImage;
     try {
       iconImage = await Image.network(
-        apiData.condition!.iconUrl,
-        fit: BoxFit.fitHeight,
-        color: Colors.grey[200],
+        apiData.currentData.iconUrl,
+        color: Colors.white,
       );
     }
     catch (error) {
@@ -41,24 +45,22 @@ class _LoadingState extends State<Loading> {
       iconImage = await Image.asset('images/alt.jpeg');
     }
 
-    print(iconImage);
-
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       // should do error handling for null values here
-      'location': location,
-      'description': apiData.condition?.description,
+      'location': currentLocation,
+      'description': apiData.currentData.description,
       'iconImage': iconImage,
-      'temp': apiData.temperature?.temp.toString(),
-      'feelsLike': apiData.temperature?.feelsLike.toString(),
-      'tempMax': apiData.temperature?.tempMax.toString(),
-      'tempMin': apiData.temperature?.tempMin.toString(),
+      'temp': apiData.currentData.temp.floor().toString(),
+      'feelsLike': apiData.currentData.feelsLike.floor().toString(),
+      'tempMax': apiData.currentData.tempMax.floor().toString(),
+      'tempMin': apiData.currentData.tempMin.floor().toString(),
     });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    fetchData();
+    prepareLoadData();
   }
 
   @override

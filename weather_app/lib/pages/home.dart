@@ -40,20 +40,25 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 5),
               Center(
                 child: Text(
                     weatherData['description'],
                     style: TextStyle(
                         fontFamily: 'Jua',
                         fontSize: 20,
-                        color: Colors.white
+                        color: Colors.grey[200],
                     )),
               ),
               Container(
                 width: double.infinity,
                 height: 150.0,
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
                 color: Colors.blue[600],
-                child: weatherData['iconImage'],
+                  child: CircleAvatar(
+                    backgroundColor: Colors.blue[200],
+                    child: weatherData['iconImage'],
+                ),
               ),
               Center(
                 child: Row(
@@ -64,7 +69,7 @@ class _HomeState extends State<Home> {
                         '${weatherData['temp']}\u00b0',
                         style: TextStyle(
                           fontFamily: 'Jua',
-                          fontSize: 70,
+                          fontSize: 90,
                           color: Colors.white,
                         )),
                   ]
