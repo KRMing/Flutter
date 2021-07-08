@@ -3,8 +3,12 @@ import 'package:geolocator/geolocator.dart';
 
 class GeoLocator {
 
-  String lon = '';
-  String lat = '';
+  String lat;
+  String lon;
+
+  GeoLocator(this.lat, this.lon);
+
+  GeoLocator.empty() : this('0.0', '0.0');
 
   /// Determine the current position of the device.
   ///

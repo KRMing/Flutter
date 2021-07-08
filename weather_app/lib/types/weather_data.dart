@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WeatherData {
 
@@ -24,7 +25,58 @@ class WeatherData {
 
   WeatherData.empty() : this(DateTime.now(), '', 0.0, isEmpty: true);
 
-  void print_all() {
+  Widget toListViewTemplate() {
+
+    String prefix = (12 <= this.dt.hour && this.dt.hour < 24) ? '오후' : '오전';
+    int hour = (12 < this.dt.hour && this.dt.hour <= 24) ? this.dt.hour - 12 : (this.dt.hour == 0) ? this.dt.hour + 12 : this.dt.hour;
+    String hourDisplay = '${prefix} ${hour.toString()}시';
+
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Center(
+            child: Text(
+              hourDisplay,
+              style: TextStyle(
+                fontFamily: 'Jua',
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          CircleAvatar(
+            backgroundColor: Colors.blue[200],
+            radius: 25,
+            child: Image.network(
+              this.iconUrl,
+              scale: 1.0,
+            ),
+          ),
+          SizedBox(height: 1),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 3),
+                Text(
+                  '${this.temp.floor().toString()}\u00b0',
+                  style: TextStyle(
+                    fontFamily: 'Jua',
+                    fontSize: 18,
+                    color: Colors.white
+                  )
+                ),
+              ]
+            )
+          ),
+        ],
+      ),
+    );
+  }
+
+  void printAll() {
 
     print('\n\n printing all fields: ');
     print(this.dt);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/types/weather_data.dart';
 
 class Home extends StatefulWidget {
 
@@ -121,8 +122,14 @@ class _HomeState extends State<Home> {
                     ]
                 ),
               ),
-              ListView(
-
+              Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: weatherData['hourly'].length,
+                  itemBuilder: (context, index) {
+                    return weatherData['hourly'][index].toListViewTemplate();
+                  },
+                ),
               ),
             ],
           ),

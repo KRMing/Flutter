@@ -16,7 +16,7 @@ class _LoadingState extends State<Loading> {
 
   void prepareLoadData() async {
 
-    GeoLocator location = GeoLocator();
+    GeoLocator location = GeoLocator.empty();
     await location.getPosition();
 
     ApiManager apiData = ApiManager(location.lat, location.lon);
@@ -54,6 +54,7 @@ class _LoadingState extends State<Loading> {
       'feelsLike': apiData.currentData.feelsLike.floor().toString(),
       'tempMax': apiData.currentData.tempMax.floor().toString(),
       'tempMin': apiData.currentData.tempMin.floor().toString(),
+      'hourly': apiData.hourlyData, // list of hourly forecast data
     });
   }
 
