@@ -25,14 +25,34 @@ class WeatherData {
 
   WeatherData.empty() : this(DateTime.now(), '', 0.0, isEmpty: true);
 
-  Widget toListViewTemplate() {
+  Widget toListViewTemplate(int index) {
+
+    List<Widget> indicatorTexts = [
+      Text(
+        'Tomorrow',
+        style: TextStyle(
+          fontFamily: 'Jua',
+          fontSize: 15,
+          color: Colors.white,
+        ),
+      ),
+      Text(
+        'The Day After\n    Tomorrow',
+        style: TextStyle(
+          fontFamily: 'Jua',
+          fontSize: 15,
+          color: Colors.white,
+        ),
+      ),
+    ];
 
     String prefix = (12 <= this.dt.hour && this.dt.hour < 24) ? '오후' : '오전';
     int hour = (12 < this.dt.hour && this.dt.hour <= 24) ? this.dt.hour - 12 : (this.dt.hour == 0) ? this.dt.hour + 12 : this.dt.hour;
     String hourDisplay = '${prefix} ${hour.toString()}시';
+    int textIndex = index ~/ 24;
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+    Widget weatherCard = Container(
+      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -56,23 +76,56 @@ class WeatherData {
           ),
           SizedBox(height: 1),
           Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(width: 3),
-                Text(
-                  '${this.temp.floor().toString()}\u00b0',
-                  style: TextStyle(
-                    fontFamily: 'Jua',
-                    fontSize: 18,
-                    color: Colors.white
-                  )
-                ),
-              ]
-            )
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 3),
+                    Text(
+                        '${this.temp.floor().toString()}\u00b0',
+                        style: TextStyle(
+                            fontFamily: 'Jua',
+                            fontSize: 18,
+                            color: Colors.white
+                        )
+                    ),
+                  ]
+              )
           ),
         ],
       ),
+    );
+
+    if (!(this.dt.hour == 1 && prefix == '오전')) {
+      return weatherCard;
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                height: (textIndex < 1) ? 50 : 60,
+                width: (textIndex < 1) ? 80 : 100,
+                decoration: BoxDecoration(
+                  border: Border(
+                      top: BorderSide(width: 1.0, color: Colors.white),
+                      bottom: BorderSide(width: 1.0, color: Colors.white)
+                  ),
+                ),
+                child: Center(
+                  child: indicatorTexts[textIndex],
+                ),
+              ),
+            ],
+          ),
+        ),
+        weatherCard,
+      ],
     );
   }
 

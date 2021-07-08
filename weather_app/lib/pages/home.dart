@@ -16,6 +16,24 @@ class _HomeState extends State<Home> {
 
     weatherData = weatherData.isNotEmpty ? weatherData : ModalRoute.of(context)?.settings.arguments as Map;
 
+    int bgIntensity = 0;
+    int currentHour = DateTime.now().hour;
+    if (6 <= currentHour && currentHour <= 9) {
+      bgIntensity = 700;
+    }
+    else if (9 < currentHour && currentHour <= 18) {
+      bgIntensity = 600;
+    }
+    else if (18 < currentHour && currentHour <= 20) {
+      bgIntensity = 700;
+    }
+    else if (20 < currentHour && currentHour <= 22) {
+      bgIntensity = 800;
+    }
+    else {
+      bgIntensity = 900;
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -62,40 +80,48 @@ class _HomeState extends State<Home> {
                     radius: 50,
                 ),
               ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 20),
-                    Text(
-                        '${weatherData['temp']}\u00b0',
-                        style: TextStyle(
-                          fontFamily: 'Jua',
-                          fontSize: 90,
-                          color: Colors.white
-                        )),
-                  ]
-                )
+              SizedBox(height: 10),
+              Container(
+                height: 110,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 40),
+                      Text(
+                          '${weatherData['temp']}\u00b0',
+                          style: TextStyle(
+                            fontFamily: 'Jua',
+                            fontSize: 100,
+                            color: Colors.white
+                          )),
+                    ]
+                  )
+                ),
               ),
-              Center(
-                child: Text(
-                    '체감 온도: ${weatherData['feelsLike']}\u00b0',
-                    style: TextStyle(
-                      fontFamily: 'Jua',
-                      fontSize: 30,
-                      color: Colors.grey[200],
-                    )),
+              Container(
+                child: Center(
+                  child: Text(
+                      '체감 온도: ${weatherData['feelsLike']}\u00b0',
+                      style: TextStyle(
+                        fontFamily: 'Jua',
+                        fontSize: 30,
+                        color: Colors.grey[200],
+                      )),
+                ),
               ),
-              Center(
-                child: Text(
-                    '최고 ${weatherData['tempMax']}\u00b0 / 최저 ${weatherData['tempMin']}\u00b0',
-                    style: TextStyle(
-                      fontFamily: 'Jua',
-                      fontSize: 20,
-                      color: Colors.grey[300],
-                    )),
+              Container(
+                child: Center(
+                  child: Text(
+                      '최고 ${weatherData['tempMax']}\u00b0 / 최저 ${weatherData['tempMin']}\u00b0',
+                      style: TextStyle(
+                        fontFamily: 'Jua',
+                        fontSize: 20,
+                        color: Colors.grey[300],
+                      )),
+                ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 40),
               Container(
                 color: Colors.blue[800],
                 child: Row(
@@ -127,7 +153,7 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   itemCount: weatherData['hourly'].length,
                   itemBuilder: (context, index) {
-                    return weatherData['hourly'][index].toListViewTemplate();
+                    return weatherData['hourly'][index].toListViewTemplate(index);
                   },
                 ),
               ),

@@ -60,6 +60,8 @@ class ApiManager {
           entity['temp'],
         ));
       }
+
+      hourlyData.removeAt(0);
     }
     catch (error) {
       print('SYSALERT - ERROR: error during api response fetching process. Error: ${error}');
