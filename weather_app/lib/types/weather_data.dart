@@ -68,7 +68,7 @@ class WeatherData {
           ),
           CircleAvatar(
             backgroundColor: Colors.blue[200],
-            radius: 25,
+            radius: 30,
             child: Image.network(
               this.iconUrl,
               scale: 1.0,
@@ -91,6 +91,7 @@ class WeatherData {
                   ]
               )
           ),
+          SizedBox(height: 1),
         ],
       ),
     );

@@ -24,16 +24,8 @@ class ApiManager {
     }
   }
 
-  double checkDouble(dynamic obj) {
-
-    if (!(obj is double)) {
-      obj = obj.toDouble();
-    }
-
-    return obj;
-  }
-
   Future<void> fetch() async {
+
     try {
       // http get request, parse the response data and store them in jsonData
       Response response = await get(Uri.parse(this.apiUrl));
@@ -43,21 +35,21 @@ class ApiManager {
       currentData = WeatherData(
         DateTime.fromMillisecondsSinceEpoch(jsonData['current']['dt'] * 1000),
         jsonData['current']['weather'][0]['icon'],
-        checkDouble(jsonData['current']['temp']),
+        double.parse(jsonData['current']['temp'].toString()),
         // city: something // add city info later on
-        feelsLike: checkDouble(jsonData['current']['feels_like']),
-        lat: checkDouble(jsonData['lat']),
-        lon: checkDouble(jsonData['lon']),
+        feelsLike: double.parse(jsonData['current']['feels_like'].toString()),
+        lat: double.parse(jsonData['lat'].toString()),
+        lon: double.parse(jsonData['lon'].toString()),
         description: jsonData['current']['weather'][0]['description'],
-        tempMax: checkDouble(jsonData['daily'][0]['temp']['max']),
-        tempMin: checkDouble(jsonData['daily'][0]['temp']['min']),
+        tempMax: double.parse(jsonData['daily'][0]['temp']['max'].toString()),
+        tempMin: double.parse(jsonData['daily'][0]['temp']['min'].toString()),
       );
 
       for (Map<String, dynamic> entity in jsonData['hourly']) {
         hourlyData.add(WeatherData(
           DateTime.fromMillisecondsSinceEpoch(entity['dt'] * 1000),
           entity['weather'][0]['icon'],
-          entity['temp'],
+          double.parse(entity['temp'].toString()),
         ));
       }
 
@@ -67,7 +59,5 @@ class ApiManager {
       print('SYSALERT - ERROR: error during api response fetching process. Error: ${error}');
       currentData = WeatherData.empty();
     }
-
-
   }
 }
