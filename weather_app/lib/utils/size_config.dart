@@ -13,7 +13,6 @@ class SizeConfig {
   SizeConfig(this._width, this._height, {this.scaleFactor = 1.0, this.orthoScale = 1.0}) {
 
     if (this._width == null || this._height == null) {
-
       this._width = ogWidth;
       this._height = ogHeight;
     }

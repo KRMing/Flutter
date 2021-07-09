@@ -14,14 +14,10 @@ class ApiManager {
   List<WeatherData> hourlyData = []; // list of weatherdata datatype to contain hourly forecasts
 
   ApiManager(lat, lon) { // uses lat, lon values retrieved from geolocator that makes API call relative to current position
-    try {
+
       this.lat = lat;
       this.lon = lon;
       this.apiUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=${this.lat}&lon=${this.lon}&appid=${ApiKey.apiKey}&units=metric&lang=kr';
-    }
-    catch (error) {
-      print('SYSALERT - ERROR: invalid initailization while creating api urls, possibly the forecast url. Error: ${error}');
-    }
   }
 
   Future<void> fetch() async {

@@ -3,6 +3,7 @@ import 'pages/loading.dart';
 import 'pages/home.dart';
 
 void main() {
+
   runApp(
     MaterialApp(
       initialRoute: '/',

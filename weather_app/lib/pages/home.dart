@@ -14,16 +14,19 @@ class _HomeState extends State<Home> {
   final int updateInterval = 5;
 
   void toLoadingPage() {
+
     Navigator.pushReplacementNamed(context, '/');
   }
 
   @override
   void initState() {
+
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
+
     super.didChangeDependencies();
   }
 

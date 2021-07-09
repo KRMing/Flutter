@@ -21,11 +21,13 @@ class _LoadingState extends State<Loading> {
 
   @override
   void initState() {
+
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
+
     prepareScaling();
     prepareLoadData();
     super.didChangeDependencies();
@@ -35,6 +37,7 @@ class _LoadingState extends State<Loading> {
 
     this.queryData = await MediaQuery.of(context);
     SizeConfig size = SizeConfig(this.queryData?.size.width, this.queryData?.size.height);
+
     scale = size.scaleFactor;
     orthoScale = size.orthoScale;
   }
@@ -86,6 +89,7 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.blue[600],
       body: Center(
