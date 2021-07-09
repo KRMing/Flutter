@@ -81,10 +81,31 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       backgroundColor: Colors.blue[600],
       body: Center(
-          child: SpinKitDualRing(
-            color: Colors.white,
-            size: 50.0,
-          )
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              child: Center(
+                child: Text(
+                  '데이터를 가져오고 있습니다',
+                  style: TextStyle(
+                    fontFamily: 'Jua',
+                    fontSize: 30,
+                    color: Colors.white,
+                  )
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+                child: SpinKitDualRing(
+                  color: Colors.white,
+                  size: 50.0,
+                )
+            ),
+          ],
+        ),
       ),
     );
   }

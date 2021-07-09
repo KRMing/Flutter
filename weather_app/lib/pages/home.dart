@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/types/weather_data.dart';
+import 'dart:async';
 
 class Home extends StatefulWidget {
 
@@ -9,10 +10,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  static const int updateInterval = 5;
   Map weatherData = {};
+
+  void toLoadingPage() {
+    Navigator.pushReplacementNamed(context, '/');
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    Timer timer = Timer(Duration(minutes: updateInterval), toLoadingPage);
 
     weatherData = weatherData.isNotEmpty ? weatherData : ModalRoute.of(context)?.settings.arguments as Map;
 
@@ -138,12 +146,13 @@ class _HomeState extends State<Home> {
                             )),
                       ),
                       Container(
-                          padding: EdgeInsets.only(right: 15.0),
-                          margin: EdgeInsets.only(left: 165),
-                          child: Icon(
-                            Icons.insert_chart,
-                            color: Colors.white,
-                          )
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 15.0),
+                        margin: EdgeInsets.only(left: 165),
+                        child: Icon(
+                          Icons.insert_chart,
+                          color: Colors.white,
+                        )
                       ),
                     ]
                 ),
