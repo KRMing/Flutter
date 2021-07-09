@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/types/weather_data.dart';
+import 'package:weather_app/types/display_argument.dart';
 import 'dart:async';
 
 class Home extends StatefulWidget {
@@ -11,7 +12,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final int updateInterval = 5;
-  Map weatherData = {};
 
   void toLoadingPage() {
     Navigator.pushReplacementNamed(context, '/');
@@ -30,10 +30,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    weatherData = weatherData.isNotEmpty ? weatherData : ModalRoute.of(context)?.settings.arguments as Map;
+    DisplayArgs displayArgs = ModalRoute.of(context)?.settings.arguments as DisplayArgs;
 
-    double scale = weatherData['scale'];
-    double orthoScale = weatherData['orthoScale'];
+    double scale = displayArgs.scale;
+    double orthoScale = displayArgs.orthoScale;
 
     int bgIntensity = 0;
     int currentHour = DateTime.now().hour;
@@ -65,14 +65,13 @@ class _HomeState extends State<Home> {
         Container(
           margin: EdgeInsets.only(top:15.0 * orthoScale),
           child: Text(
-              weatherData['location'],
+              displayArgs.location,
               style: TextStyle(
                 fontFamily: 'Jua',
                 fontSize: 35 * orthoScale,
               )),
         ),
       ),
-
       body: Center(
         child: Container(
           // width: double.infinity,
@@ -83,7 +82,7 @@ class _HomeState extends State<Home> {
               SizedBox(height: 5 * orthoScale),
               Center(
                 child: Text(
-                    weatherData['description'],
+                    displayArgs.description,
                     style: TextStyle(
                         fontFamily: 'Jua',
                         fontSize: 20 * orthoScale,
@@ -97,7 +96,7 @@ class _HomeState extends State<Home> {
                 color: Colors.blue[bgIntensity],
                   child: CircleAvatar(
                     backgroundColor: Colors.blue[200],
-                    child: weatherData['iconImage'],
+                    child: displayArgs.iconImage,
                     radius: 50 * orthoScale,
                 ),
               ),
@@ -110,7 +109,7 @@ class _HomeState extends State<Home> {
                     children: [
                       SizedBox(width: 40 * orthoScale),
                       Text(
-                          '${weatherData['temp']}\u00b0',
+                          '${displayArgs.temp}\u00b0',
                           style: TextStyle(
                             fontFamily: 'Jua',
                             fontSize: 100 * orthoScale,
@@ -123,7 +122,7 @@ class _HomeState extends State<Home> {
               Container(
                 child: Center(
                   child: Text(
-                      '체감 온도: ${weatherData['feelsLike']}\u00b0',
+                      '체감 온도: ${displayArgs.feelsLike}\u00b0',
                       style: TextStyle(
                         fontFamily: 'Jua',
                         fontSize: 30 * orthoScale,
@@ -134,7 +133,7 @@ class _HomeState extends State<Home> {
               Container(
                 child: Center(
                   child: Text(
-                      '최고 ${weatherData['tempMax']}\u00b0 / 최저 ${weatherData['tempMin']}\u00b0',
+                      '최고 ${displayArgs.tempMax}\u00b0 / 최저 ${displayArgs.tempMin}\u00b0',
                       style: TextStyle(
                         fontFamily: 'Jua',
                         fontSize: 20 * orthoScale,
@@ -174,9 +173,9 @@ class _HomeState extends State<Home> {
                 flex: 10,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: weatherData['hourly'].length,
+                  itemCount: displayArgs.hourly.length,
                   itemBuilder: (context, index) {
-                    return weatherData['hourly'][index].toListViewTemplate(index, scale, orthoScale);
+                    return displayArgs.hourly[index].toListViewTemplate(index, scale, orthoScale);
                   },
                 ),
               ),

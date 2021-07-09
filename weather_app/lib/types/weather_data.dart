@@ -130,7 +130,6 @@ class WeatherData {
   }
 
   void printAll() {
-
     print('\n\n printing all fields: ');
     print(this.dt);
     print(this.iconId);

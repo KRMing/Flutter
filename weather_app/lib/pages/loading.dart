@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/types/display_argument.dart';
 import '../utils/size_config.dart';
 import '../utils/geolocator.dart';
 import '../utils/api_manager.dart';
@@ -62,18 +63,6 @@ class _LoadingState extends State<Loading> {
       iconImage = await Image.network(
         apiData.currentData.iconUrl,
         scale: 0.75 * scale,
-        // loadingBuilder: (context, child, loadingProgress) {
-        //   if (loadingProgress == null) {
-        //     return child;
-        //   }
-        //   else {
-        //     return Center(
-        //       child: CircularProgressIndicator(
-        //         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-        //       ),
-        //     );
-        //   }
-        // },
       );
     }
     catch (error) {
@@ -81,19 +70,18 @@ class _LoadingState extends State<Loading> {
       iconImage = await Image.asset('images/alt.jpeg');
     }
 
-    Navigator.pushReplacementNamed(context, '/home', arguments: {
-      // should do error handling for null values here
-      'scale': scale,
-      'orthoScale': orthoScale,
-      'location': currentLocation,
-      'description': apiData.currentData.description,
-      'iconImage': iconImage, // iconImage,
-      'temp': apiData.currentData.temp.floor().toString(),
-      'feelsLike': apiData.currentData.feelsLike.floor().toString(),
-      'tempMax': apiData.currentData.tempMax.floor().toString(),
-      'tempMin': apiData.currentData.tempMin.floor().toString(),
-      'hourly': apiData.hourlyData, // list of hourly forecast data
-    });
+    Navigator.pushReplacementNamed(context, '/home', arguments: DisplayArgs(
+      scale,
+      orthoScale,
+      currentLocation,
+      apiData.currentData.description,
+      iconImage, // iconImage,
+      apiData.currentData.temp.floor().toString(),
+      apiData.currentData.feelsLike.floor().toString(),
+      apiData.currentData.tempMax.floor().toString(),
+      apiData.currentData.tempMin.floor().toString(),
+      apiData.hourlyData, // list of hourly forecast data
+    ));
   }
 
   @override
