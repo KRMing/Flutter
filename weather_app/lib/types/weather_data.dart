@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class WeatherData {
 
@@ -25,14 +26,14 @@ class WeatherData {
 
   WeatherData.empty() : this(DateTime.now(), '', 0.0, isEmpty: true);
 
-  Widget toListViewTemplate(int index) {
+  Widget toListViewTemplate(int index, double scale, double orthoScale) {
 
     List<Widget> indicatorTexts = [
       Text(
         'Tomorrow',
         style: TextStyle(
           fontFamily: 'Jua',
-          fontSize: 15,
+          fontSize: 15 * orthoScale,
           color: Colors.white,
         ),
       ),
@@ -40,7 +41,7 @@ class WeatherData {
         'The Day After\n    Tomorrow',
         style: TextStyle(
           fontFamily: 'Jua',
-          fontSize: 15,
+          fontSize: 15 * orthoScale,
           color: Colors.white,
         ),
       ),
@@ -52,7 +53,7 @@ class WeatherData {
     int textIndex = index ~/ 24;
 
     Widget weatherCard = Container(
-      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      margin: EdgeInsets.symmetric(vertical: 15 * orthoScale, horizontal: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -61,37 +62,35 @@ class WeatherData {
               hourDisplay,
               style: TextStyle(
                 fontFamily: 'Jua',
-                fontSize: 15,
+                fontSize: 15 * orthoScale,
                 color: Colors.white,
               ),
             ),
           ),
           CircleAvatar(
             backgroundColor: Colors.blue[200],
-            radius: 30,
+            radius: 30 * orthoScale * orthoScale,
             child: Image.network(
               this.iconUrl,
-              scale: 1.0,
+              scale: 1.0 * scale,
             ),
           ),
-          SizedBox(height: 1),
           Center(
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 3),
+                    SizedBox(width: 3 * orthoScale),
                     Text(
                         '${this.temp.floor().toString()}\u00b0',
                         style: TextStyle(
                             fontFamily: 'Jua',
-                            fontSize: 18,
+                            fontSize: 18 * orthoScale,
                             color: Colors.white
                         )
                     ),
                   ]
               )
           ),
-          // SizedBox(height: 1),
         ],
       ),
     );
@@ -104,18 +103,18 @@ class WeatherData {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+          margin: EdgeInsets.symmetric(vertical: 15 * orthoScale, horizontal: 5 * orthoScale),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 5),
-                height: (textIndex < 1) ? 50 : 60,
-                width: (textIndex < 1) ? 80 : 100,
+                padding: EdgeInsets.symmetric(vertical: 5 * orthoScale),
+                height: (textIndex < 1) ? 50 * orthoScale : 60 * orthoScale,
+                width: (textIndex < 1) ? 80 * orthoScale : 100 * orthoScale,
                 decoration: BoxDecoration(
                   border: Border(
-                      top: BorderSide(width: 1.0, color: Colors.white),
-                      bottom: BorderSide(width: 1.0, color: Colors.white)
+                      top: BorderSide(width: 1 * orthoScale, color: Colors.white),
+                      bottom: BorderSide(width: 1 * orthoScale, color: Colors.white)
                   ),
                 ),
                 child: Center(

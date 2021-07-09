@@ -1,18 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import '../utils/size_config.dart';
 import '../utils/geolocator.dart';
 import '../utils/api_manager.dart';
 import '../types/mappings.dart';
 
 class Loading extends StatefulWidget {
-  const Loading({Key? key}) : super(key: key);
 
   @override
   _LoadingState createState() => _LoadingState();
 }
 
 class _LoadingState extends State<Loading> {
+
+  MediaQueryData? queryData;
+  double scale = 1.0;
+  double orthoScale = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    prepareScaling();
+    prepareLoadData();
+    super.didChangeDependencies();
+  }
+
+  void prepareScaling() async {
+
+    this.queryData = await MediaQuery.of(context);
+    SizeConfig size = SizeConfig(this.queryData?.size.width, this.queryData?.size.height);
+    scale = size.scaleFactor;
+    orthoScale = size.orthoScale;
+  }
 
   void prepareLoadData() async {
 
@@ -37,7 +61,7 @@ class _LoadingState extends State<Loading> {
     try {
       iconImage = await Image.network(
         apiData.currentData.iconUrl,
-        scale: 0.75,
+        scale: 0.75 * scale,
         // loadingBuilder: (context, child, loadingProgress) {
         //   if (loadingProgress == null) {
         //     return child;
@@ -59,6 +83,8 @@ class _LoadingState extends State<Loading> {
 
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       // should do error handling for null values here
+      'scale': scale,
+      'orthoScale': orthoScale,
       'location': currentLocation,
       'description': apiData.currentData.description,
       'iconImage': iconImage, // iconImage,
@@ -68,12 +94,6 @@ class _LoadingState extends State<Loading> {
       'tempMin': apiData.currentData.tempMin.floor().toString(),
       'hourly': apiData.hourlyData, // list of hourly forecast data
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    prepareLoadData();
   }
 
   @override
@@ -97,11 +117,11 @@ class _LoadingState extends State<Loading> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 20 * orthoScale),
             Center(
                 child: SpinKitDualRing(
                   color: Colors.white,
-                  size: 50.0,
+                  size: 50,
                 )
             ),
           ],

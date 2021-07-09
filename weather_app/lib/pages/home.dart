@@ -10,7 +10,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  static const int updateInterval = 5;
+  final int updateInterval = 5;
   Map weatherData = {};
 
   void toLoadingPage() {
@@ -18,11 +18,22 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    Timer timer = Timer(Duration(minutes: updateInterval), toLoadingPage);
-
     weatherData = weatherData.isNotEmpty ? weatherData : ModalRoute.of(context)?.settings.arguments as Map;
+
+    double scale = weatherData['scale'];
+    double orthoScale = weatherData['orthoScale'];
 
     int bgIntensity = 0;
     int currentHour = DateTime.now().hour;
@@ -42,20 +53,22 @@ class _HomeState extends State<Home> {
       bgIntensity = 900;
     }
 
+    Timer timer = Timer(Duration(minutes: this.updateInterval), this.toLoadingPage);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        toolbarHeight: 50,
-        backgroundColor: Colors.blue[600],
+        toolbarHeight: 50 * orthoScale,
+        backgroundColor: Colors.blue[bgIntensity],
         centerTitle: true,
         title:
         Container(
-          margin: EdgeInsets.only(top:15.0),
+          margin: EdgeInsets.only(top:15.0 * orthoScale),
           child: Text(
               weatherData['location'],
               style: TextStyle(
                 fontFamily: 'Jua',
-                fontSize: 35,
+                fontSize: 35 * orthoScale,
               )),
         ),
       ),
@@ -63,44 +76,44 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Container(
           // width: double.infinity,
-          color: Colors.blue[600],
+          color: Colors.blue[bgIntensity],
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: 5 * orthoScale),
               Center(
                 child: Text(
                     weatherData['description'],
                     style: TextStyle(
                         fontFamily: 'Jua',
-                        fontSize: 20,
+                        fontSize: 20 * orthoScale,
                         color: Colors.grey[200],
                     )),
               ),
               Container(
                 width: double.infinity,
-                height: 150.0,
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                color: Colors.blue[600],
+                height: 150.0 * orthoScale,
+                padding: EdgeInsets.symmetric(vertical: 5 * orthoScale, horizontal: 0 * orthoScale),
+                color: Colors.blue[bgIntensity],
                   child: CircleAvatar(
                     backgroundColor: Colors.blue[200],
                     child: weatherData['iconImage'],
-                    radius: 50,
+                    radius: 50 * orthoScale,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10 * orthoScale),
               Container(
-                height: 110,
+                height: 110 * orthoScale,
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(width: 40),
+                      SizedBox(width: 40 * orthoScale),
                       Text(
                           '${weatherData['temp']}\u00b0',
                           style: TextStyle(
                             fontFamily: 'Jua',
-                            fontSize: 100,
+                            fontSize: 100 * orthoScale,
                             color: Colors.white
                           )),
                     ]
@@ -113,7 +126,7 @@ class _HomeState extends State<Home> {
                       '체감 온도: ${weatherData['feelsLike']}\u00b0',
                       style: TextStyle(
                         fontFamily: 'Jua',
-                        fontSize: 30,
+                        fontSize: 30 * orthoScale,
                         color: Colors.grey[200],
                       )),
                 ),
@@ -124,14 +137,14 @@ class _HomeState extends State<Home> {
                       '최고 ${weatherData['tempMax']}\u00b0 / 최저 ${weatherData['tempMin']}\u00b0',
                       style: TextStyle(
                         fontFamily: 'Jua',
-                        fontSize: 20,
-                        color: Colors.grey[300],
+                        fontSize: 20 * orthoScale,
+                        color: Colors.grey[200],
                       )),
                 ),
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 30 * orthoScale * orthoScale),
               Container(
-                color: Colors.blue[800],
+                color: (bgIntensity + 200 > 900) ? Colors.black : Colors.blue[bgIntensity + 200],
                 child: Row(
                     children: [
                       Container(
@@ -141,13 +154,13 @@ class _HomeState extends State<Home> {
                             '오늘',
                             style: TextStyle(
                               fontFamily: 'Jua',
-                              fontSize: 20,
+                              fontSize: 20 * orthoScale,
                               color: Colors.white,
                             )),
                       ),
                       Container(
                         alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: 15.0),
+                        padding: EdgeInsets.only(right: 15.0 * scale),
                         margin: EdgeInsets.only(left: 165),
                         child: Icon(
                           Icons.insert_chart,
@@ -158,14 +171,19 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Expanded(
+                flex: 10,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: weatherData['hourly'].length,
                   itemBuilder: (context, index) {
-                    return weatherData['hourly'][index].toListViewTemplate(index);
+                    return weatherData['hourly'][index].toListViewTemplate(index, scale, orthoScale);
                   },
                 ),
               ),
+              Expanded(
+                flex: 1,
+                child: SizedBox(height: 1),
+              )
             ],
           ),
         ),
