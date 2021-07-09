@@ -38,6 +38,18 @@ class _LoadingState extends State<Loading> {
       iconImage = await Image.network(
         apiData.currentData.iconUrl,
         scale: 0.75,
+        // loadingBuilder: (context, child, loadingProgress) {
+        //   if (loadingProgress == null) {
+        //     return child;
+        //   }
+        //   else {
+        //     return Center(
+        //       child: CircularProgressIndicator(
+        //         valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+        //       ),
+        //     );
+        //   }
+        // },
       );
     }
     catch (error) {
@@ -49,7 +61,7 @@ class _LoadingState extends State<Loading> {
       // should do error handling for null values here
       'location': currentLocation,
       'description': apiData.currentData.description,
-      'iconImage': iconImage,
+      'iconImage': iconImage, // iconImage,
       'temp': apiData.currentData.temp.floor().toString(),
       'feelsLike': apiData.currentData.feelsLike.floor().toString(),
       'tempMax': apiData.currentData.tempMax.floor().toString(),

@@ -91,7 +91,7 @@ class WeatherData {
                   ]
               )
           ),
-          SizedBox(height: 1),
+          // SizedBox(height: 1),
         ],
       ),
     );

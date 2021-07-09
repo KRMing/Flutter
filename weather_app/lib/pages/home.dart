@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
                       )),
                 ),
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30),
               Container(
                 color: Colors.blue[800],
                 child: Row(
