@@ -170,7 +170,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               ),
               SizedBox(height: 30 * orthoScale * orthoScale),
               Container(
-                color: (bgIntensity + 200 > 900) ? Colors.black : Colors.blue[bgIntensity + 200],
+                color: Colors.indigo[bgIntensity - 300],
                 child: Row(
                     children: [
                       Container(
