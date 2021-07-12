@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 import 'package:weather_app/types/weather_data.dart';
 import 'package:weather_app/types/display_argument.dart';
 import 'dart:async';
@@ -9,12 +10,15 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   final int updateInterval = 5;
+  PausableTimer? _timer;
+  AppLifecycleState? _notification;
 
   void toLoadingPage() {
 
+    this._timer?.cancel();
     Navigator.pushReplacementNamed(context, '/');
   }
 
@@ -22,6 +26,7 @@ class _HomeState extends State<Home> {
   void initState() {
 
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
@@ -31,9 +36,29 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        this.toLoadingPage();
+        break;
+      default:
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+
+    this._timer?.cancel();
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     DisplayArgs displayArgs = ModalRoute.of(context)?.settings.arguments as DisplayArgs;
+    this._timer = PausableTimer(Duration(minutes: this.updateInterval), this.toLoadingPage);
 
     double scale = displayArgs.scale;
     double orthoScale = displayArgs.orthoScale;
@@ -55,8 +80,6 @@ class _HomeState extends State<Home> {
     else {
       bgIntensity = 900;
     }
-
-    Timer timer = Timer(Duration(minutes: this.updateInterval), this.toLoadingPage);
 
     return Scaffold(
       appBar: AppBar(
@@ -112,12 +135,13 @@ class _HomeState extends State<Home> {
                     children: [
                       SizedBox(width: 40 * orthoScale),
                       Text(
-                          '${displayArgs.temp}\u00b0',
-                          style: TextStyle(
-                            fontFamily: 'Jua',
-                            fontSize: 100 * orthoScale,
-                            color: Colors.white
-                          )),
+                        '${displayArgs.temp}\u00b0',
+                        style: TextStyle(
+                          fontFamily: 'Jua',
+                          fontSize: 100 * orthoScale,
+                          color: Colors.white
+                        )
+                      ),
                     ]
                   )
                 ),

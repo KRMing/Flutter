@@ -15,6 +15,7 @@ class WeatherData {
   String description;
   double tempMax;
   double tempMin;
+  double pop;
 
   bool isEmpty;
   String iconUrl;
@@ -22,7 +23,7 @@ class WeatherData {
   WeatherData(this.dt, this.iconId, this.temp,
       {this.feelsLike = 0.0, this.city = '', this.lat = 0.0,
         this.lon = 0.0, this.description = '', this.tempMax = 0.0,
-        this.tempMin = 0.0, this.isEmpty = false, this.iconUrl = '', }) {
+        this.tempMin = 0.0, this.pop = 0.0, this.isEmpty = false, this.iconUrl = '', }) {
 
     this.iconUrl = 'http://openweathermap.org/img/wn/${this.iconId}@2x.png';
   }
@@ -31,6 +32,10 @@ class WeatherData {
 
   Widget toListViewTemplate(int index, double scale, double orthoScale) {
 
+    String prefix = (12 <= this.dt.hour && this.dt.hour < 24) ? '오후' : '오전';
+    int hour = (12 < this.dt.hour && this.dt.hour <= 24) ? this.dt.hour - 12 : (this.dt.hour == 0) ? this.dt.hour + 12 : this.dt.hour;
+    String hourDisplay = '${prefix} ${hour.toString()}시';
+    int textIndex = index ~/ 24;
     List<Widget> indicatorTexts = [
       Text(
         'Tomorrow',
@@ -50,13 +55,9 @@ class WeatherData {
       ),
     ];
 
-    String prefix = (12 <= this.dt.hour && this.dt.hour < 24) ? '오후' : '오전';
-    int hour = (12 < this.dt.hour && this.dt.hour <= 24) ? this.dt.hour - 12 : (this.dt.hour == 0) ? this.dt.hour + 12 : this.dt.hour;
-    String hourDisplay = '${prefix} ${hour.toString()}시';
-    int textIndex = index ~/ 24;
-
     Widget weatherCard = Container(
-      margin: EdgeInsets.symmetric(vertical: 15 * orthoScale, horizontal: 15),
+      width: 83 * orthoScale,
+      margin: EdgeInsets.symmetric(vertical: 15 * orthoScale, horizontal: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -70,29 +71,38 @@ class WeatherData {
               ),
             ),
           ),
-          CircleAvatar(
-            backgroundColor: Colors.blue[200],
-            radius: 30 * orthoScale * orthoScale,
-            child: Image.network(
-              this.iconUrl,
-              scale: 1.0 * scale,
+          OutlinedButton(
+            onPressed: () {
+              print("pressed!");
+            },
+            style: OutlinedButton.styleFrom(
+                shape: CircleBorder(),
+                backgroundColor: Colors.blue[200],
+              ),
+            child: Container(
+              height: 65 * orthoScale,
+              width: 65 * orthoScale,
+              child: Image.network(
+                this.iconUrl,
+                scale: 1.0,
+              ),
             ),
           ),
           Center(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 3 * orthoScale),
-                    Text(
-                        '${this.temp.floor().toString()}\u00b0',
-                        style: TextStyle(
-                            fontFamily: 'Jua',
-                            fontSize: 18 * orthoScale,
-                            color: Colors.white
-                        )
-                    ),
-                  ]
-              )
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(width: 3 * orthoScale),
+                Text(
+                  '${this.temp.floor().toString()}\u00b0',
+                  style: TextStyle(
+                      fontFamily: 'Jua',
+                      fontSize: 18 * orthoScale,
+                      color: Colors.white
+                  )
+                ),
+              ]
+            )
           ),
         ],
       ),

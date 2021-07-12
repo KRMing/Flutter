@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/types/weather_data.dart';
+import 'package:weather_app/utils/api_key.dart';
+import 'dart:ffi';
 import 'dart:convert';
-import '../types/weather_data.dart';
-import 'api_key.dart';
+
 
 class ApiManager {
 
@@ -32,7 +34,6 @@ class ApiManager {
         DateTime.fromMillisecondsSinceEpoch(jsonData['current']['dt'] * 1000),
         jsonData['current']['weather'][0]['icon'],
         double.parse(jsonData['current']['temp'].toString()),
-        // city: something // add city info later on
         feelsLike: double.parse(jsonData['current']['feels_like'].toString()),
         lat: double.parse(jsonData['lat'].toString()),
         lon: double.parse(jsonData['lon'].toString()),
@@ -46,6 +47,7 @@ class ApiManager {
           DateTime.fromMillisecondsSinceEpoch(entity['dt'] * 1000),
           entity['weather'][0]['icon'],
           double.parse(entity['temp'].toString()),
+          pop: double.parse(entity['pop'].toString()),
         ));
       }
 

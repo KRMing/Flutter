@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/types/display_argument.dart';
-import '../utils/size_config.dart';
-import '../utils/geolocator.dart';
-import '../utils/api_manager.dart';
-import '../types/mappings.dart';
+import 'package:weather_app/utils/size_config.dart';
+import 'package:weather_app/utils/geolocator.dart';
+import 'package:weather_app/utils/api_manager.dart';
+import 'package:weather_app/types/mappings.dart';
 
 class Loading extends StatefulWidget {
 
@@ -28,8 +28,8 @@ class _LoadingState extends State<Loading> {
   @override
   void didChangeDependencies() {
 
-    prepareScaling();
-    prepareLoadData();
+    this.prepareScaling();
+    this.prepareLoadData();
     super.didChangeDependencies();
   }
 
@@ -60,7 +60,7 @@ class _LoadingState extends State<Loading> {
       currentLocation = 'LOCATION: NULL';
     };
 
-    // get image
+    // get image over the network
     Image iconImage;
     try {
       iconImage = await Image.network(
