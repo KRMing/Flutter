@@ -42,12 +42,43 @@ class ApiManager {
         tempMin: double.parse(jsonData['daily'][0]['temp']['min'].toString()),
       );
 
+      Image altImage = await Image.asset('images/alt.jpeg');
+
       for (Map<String, dynamic> entity in jsonData['hourly']) {
+
+        Image? tempImage;
+        try {
+          tempImage = await Image.network(
+            entity['weather'][0]['icon'],
+            scale: 1.0,
+          );
+        }
+        catch (imageError) {
+          tempImage = altImage;
+        }
+
+        double? rain;
+        try {
+          rain = double.parse(entity['rain'].toString());
+        }
+        catch (parseError) {
+          rain = null;
+        }
+
         hourlyData.add(WeatherData(
           DateTime.fromMillisecondsSinceEpoch(entity['dt'] * 1000),
           entity['weather'][0]['icon'],
           double.parse(entity['temp'].toString()),
+          image: tempImage,
+          altImage: altImage,
+          description: entity['weather'][0]['description'],
+          feelsLike: double.parse(entity['feels_like'].toString()),
           pop: double.parse(entity['pop'].toString()),
+          rain: rain,
+          uvi: double.parse(entity['uvi'].toString()),
+          windSpeed: double.parse(entity['wind_speed'].toString()),
+          humidity: double.parse(entity['humidity'].toString()),
+          visibility: double.parse(entity['visibility'].toString()),
         ));
       }
 

@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
 
-  final int updateInterval = 5;
+  final Duration updateInterval = Duration(minutes: 5);
   PausableTimer? _timer;
   AppLifecycleState? _notification;
 
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
 
     DisplayArgs displayArgs = ModalRoute.of(context)?.settings.arguments as DisplayArgs;
-    this._timer = PausableTimer(Duration(minutes: this.updateInterval), this.toLoadingPage);
+    this._timer = PausableTimer(this.updateInterval, this.toLoadingPage);
 
     double scale = displayArgs.scale;
     double orthoScale = displayArgs.orthoScale;
@@ -197,19 +197,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 ),
               ),
               Expanded(
-                flex: 10,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: displayArgs.hourly.length,
                   itemBuilder: (context, index) {
-                    return displayArgs.hourly[index].toListViewTemplate(index, scale, orthoScale);
+                    return displayArgs.hourly[index].toListViewTemplate(context, this._timer, index, scale, orthoScale);
                   },
                 ),
               ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(height: 1),
-              )
+              SizedBox(height: 2 * orthoScale),
             ],
           ),
         ),
