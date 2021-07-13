@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pausable_timer/pausable_timer.dart';
-import 'package:weather_app/types/mappings.dart';
+import 'package:weather_app/models/mappings.dart';
 import 'dart:math';
 
 class WeatherData {
@@ -42,7 +42,7 @@ class WeatherData {
 
   void displayDialog(BuildContext context, PausableTimer? timer, int index, String hourDisplay, double scale, double orthoScale) {
 
-    // timer?.pause();
+    timer?.pause();
 
     this.dt.add(Duration(days: index ~/ 24));
     String dayInWeek = DateFormat('EEEE').format(this.dt);
@@ -428,7 +428,7 @@ class WeatherData {
           ),
         )
       )
-    );
+    ).whenComplete(() => timer?.start());
   }
 
   Widget toListViewTemplate(BuildContext context, PausableTimer? timer, int index, double scale, double orthoScale) {

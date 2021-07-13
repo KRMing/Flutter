@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pausable_timer/pausable_timer.dart';
-import 'package:weather_app/types/weather_data.dart';
-import 'package:weather_app/types/display_argument.dart';
+import 'package:weather_app/models/weather_data.dart';
+import 'package:weather_app/models/display_argument.dart';
 import 'dart:async';
 
 class Home extends StatefulWidget {
@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
 
-  final Duration updateInterval = Duration(minutes: 5);
+  final Duration updateInterval = Duration(minutes: 1);
   PausableTimer? _timer;
   AppLifecycleState? _notification;
 
@@ -59,6 +59,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
     DisplayArgs displayArgs = ModalRoute.of(context)?.settings.arguments as DisplayArgs;
     this._timer = PausableTimer(this.updateInterval, this.toLoadingPage);
+    this._timer?.start();
 
     double scale = displayArgs.scale;
     double orthoScale = displayArgs.orthoScale;

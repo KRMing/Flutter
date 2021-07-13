@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:weather_app/types/display_argument.dart';
+import 'package:weather_app/models/display_argument.dart';
+import 'package:weather_app/models/mappings.dart';
 import 'package:weather_app/utils/size_config.dart';
 import 'package:weather_app/utils/geolocator.dart';
 import 'package:weather_app/utils/api_manager.dart';
-import 'package:weather_app/types/mappings.dart';
 
 class Loading extends StatefulWidget {
 
@@ -15,6 +15,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
 
+  // scaling factors
   MediaQueryData? queryData;
   double scale = 1.0;
   double orthoScale = 1.0;
@@ -47,7 +48,7 @@ class _LoadingState extends State<Loading> {
     GeoLocator location = GeoLocator.empty();
     await location.getPosition();
 
-    ApiManager apiData = ApiManager(location.lat, location.lon);
+    ApiManager apiData = ApiManager(location.lat, location.lon, scale);
     await apiData.fetch();
 
     // get location translation
@@ -60,25 +61,12 @@ class _LoadingState extends State<Loading> {
       currentLocation = 'LOCATION: NULL';
     };
 
-    // get image over the network
-    Image iconImage;
-    try {
-      iconImage = await Image.network(
-        apiData.currentData.iconUrl,
-        scale: 0.75 * scale,
-      );
-    }
-    catch (error) {
-      print('SYSALERT - ERROR: error during icon image fetching process. Error: ${error}');
-      iconImage = await Image.asset('images/alt.jpeg');
-    }
-
     Navigator.pushReplacementNamed(context, '/home', arguments: DisplayArgs(
       scale,
       orthoScale,
       currentLocation,
       apiData.currentData.description,
-      iconImage, // iconImage,
+      apiData.currentData.image!, // iconImage,
       apiData.currentData.temp.floor().toString(),
       apiData.currentData.feelsLike.floor().toString(),
       apiData.currentData.tempMax.floor().toString(),
