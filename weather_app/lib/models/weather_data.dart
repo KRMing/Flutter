@@ -105,7 +105,6 @@ class WeatherData {
                           flex: 1,
                           child: OutlinedButton(
                             onPressed: () {
-                              // timer?.start();
                               Navigator.pop(context);
                             },
                             child: Align(
@@ -172,12 +171,12 @@ class WeatherData {
                                           child: Align(
                                             alignment: Alignment.bottomLeft,
                                             child: Text(
-                                                this.description,
-                                                style: TextStyle(
-                                                  fontFamily: 'Jua',
-                                                  fontSize: (25 * orthoScale),
-                                                  color: Colors.white,
-                                                )
+                                              this.description,
+                                              style: TextStyle(
+                                                fontFamily: 'Jua',
+                                                fontSize: (25 * orthoScale),
+                                                color: Colors.white,
+                                              )
                                             ),
                                           )
                                         ),
@@ -250,28 +249,28 @@ class WeatherData {
                           child: Column(
                             children: [
                               Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                    child: Icon(
-                                      (this.rain == null) ? Icons.wb_sunny : Icons.umbrella,
-                                      color: Colors.white,
-                                      size: 50 * orthoScale,
-                                    ),
-                                  )
+                                flex: 3,
+                                child: Container(
+                                  child: Icon(
+                                    (this.rain == null) ? Icons.wb_sunny : Icons.umbrella,
+                                    color: Colors.white,
+                                    size: 50 * orthoScale,
+                                  ),
+                                )
                               ),
                               Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    child: Text(
-                                        '  강수: ${rain.toStringAsFixed(1)}mm\n       ${doesRain}',
-                                        style: TextStyle(
-                                          fontFamily: 'Jua',
-                                          height: 0.95 * orthoScale,
-                                          fontSize: 15 * orthoScale,
-                                          color: Colors.blue[50],
-                                        )
-                                    ),
-                                  )
+                                flex: 2,
+                                child: Container(
+                                  child: Text(
+                                    '  강수: ${rain.toStringAsFixed(1)}mm\n       ${doesRain}',
+                                    style: TextStyle(
+                                      fontFamily: 'Jua',
+                                      height: 0.95 * orthoScale,
+                                      fontSize: 15 * orthoScale,
+                                      color: Colors.blue[50],
+                                    )
+                                  ),
+                                )
                               ),
                             ],
                           )
@@ -283,143 +282,143 @@ class WeatherData {
                 Expanded( // START OF 2 ELEMENTS
                   flex: 3,
                   child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        child: Icon(
-                                          Icons.lightbulb_outline,
-                                          color: Colors.white,
-                                          size: 50 * orthoScale,
-                                        ),
-                                      )
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  child: Icon(
+                                    Icons.lightbulb_outline,
+                                    color: Colors.white,
+                                    size: 50 * orthoScale,
                                   ),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                            '자외선 수치: ${this.uvi.floor().toString()}\n        ${uvText}',
-                                            style: TextStyle(
-                                              fontFamily: 'Jua',
-                                              height: 0.95 * orthoScale,
-                                              fontSize: 15 * orthoScale,
-                                              color: Colors.blue[50],
-                                            )
-                                        ),
-                                      )
+                                )
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  child: Text(
+                                    '자외선 수치: ${this.uvi.floor().toString()}\n        ${uvText}',
+                                    style: TextStyle(
+                                      fontFamily: 'Jua',
+                                      height: 0.95 * orthoScale,
+                                      fontSize: 15 * orthoScale,
+                                      color: Colors.blue[50],
+                                    )
                                   ),
-                                ],
-                              )
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        child: Icon(
-                                          Icons.stacked_line_chart,
-                                          color: Colors.white,
-                                          size: 50 * orthoScale,
-                                        ),
-                                      )
+                                )
+                              ),
+                            ],
+                          )
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  child: Icon(
+                                    Icons.stacked_line_chart,
+                                    color: Colors.white,
+                                    size: 50 * orthoScale,
                                   ),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                            '  바람: ${this.windSpeed.toStringAsFixed(1)}km/h\n         ${windText}',
-                                            style: TextStyle(
-                                              fontFamily: 'Jua',
-                                              height: 0.95 * orthoScale,
-                                              fontSize: 15 * orthoScale,
-                                              color: Colors.blue[50],
-                                            )
-                                        ),
-                                      )
+                                )
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  child: Text(
+                                    '  바람: ${this.windSpeed.toStringAsFixed(1)}km/h\n         ${windText}',
+                                    style: TextStyle(
+                                      fontFamily: 'Jua',
+                                      height: 0.95 * orthoScale,
+                                      fontSize: 15 * orthoScale,
+                                      color: Colors.blue[50],
+                                    )
                                   ),
-                                ],
-                              )
-                          ),
-                        ],
-                      )
+                                )
+                              ),
+                            ],
+                          )
+                        ),
+                      ],
+                    )
                   ),
                 ),
                 Expanded( // START OF 2 ELEMENTS
                   flex: 3,
                   child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        child: Icon(
-                                          Icons.water_rounded,
-                                          color: Colors.white,
-                                          size: 50 * orthoScale,
-                                        ),
-                                      )
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                    flex: 3,
+                                    child: Container(
+                                      child: Icon(
+                                        Icons.water_rounded,
+                                        color: Colors.white,
+                                        size: 50 * orthoScale,
+                                      ),
+                                    )
+                                ),
+                                Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      child: Text(
+                                          '  습도: ${humidity.toString()}%\n      ${humidityText}',
+                                          style: TextStyle(
+                                            fontFamily: 'Jua',
+                                            height: 0.95 * orthoScale,
+                                            fontSize: 15 * orthoScale,
+                                            color: Colors.blue[50],
+                                          )
+                                      ),
+                                    )
+                                ),
+                              ],
+                            )
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.remove_red_eye_outlined,
+                                      color: Colors.white,
+                                      size: 50 * orthoScale,
+                                    ),
+                                  )
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  child: Text(
+                                    '가시거리: ${visibility}km\n',
+                                    style: TextStyle(
+                                      fontFamily: 'Jua',
+                                      height: 0.95 * orthoScale,
+                                      fontSize: 15 * orthoScale,
+                                      color: Colors.blue[50],
+                                    )
                                   ),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                            '  습도: ${humidity.toString()}%\n      ${humidityText}',
-                                            style: TextStyle(
-                                              fontFamily: 'Jua',
-                                              height: 0.95 * orthoScale,
-                                              fontSize: 15 * orthoScale,
-                                              color: Colors.blue[50],
-                                            )
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              )
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                        child: Icon(
-                                          Icons.remove_red_eye_outlined,
-                                          color: Colors.white,
-                                          size: 50 * orthoScale,
-                                        ),
-                                      )
-                                  ),
-                                  Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                            '가시거리: ${visibility}km\n',
-                                            style: TextStyle(
-                                              fontFamily: 'Jua',
-                                              height: 0.95 * orthoScale,
-                                              fontSize: 15 * orthoScale,
-                                              color: Colors.blue[50],
-                                            )
-                                        ),
-                                      )
-                                  ),
-                                ],
-                              )
-                          ),
-                        ],
-                      )
+                                )
+                              ),
+                            ],
+                          )
+                        ),
+                      ],
+                    )
                   ),
                 ),
                 SizedBox(height: 10),
@@ -498,9 +497,9 @@ class WeatherData {
                 Text(
                   '${this.temp.floor().toString()}\u00b0',
                   style: TextStyle(
-                      fontFamily: 'Jua',
-                      fontSize: 18 * orthoScale,
-                      color: Colors.white
+                    fontFamily: 'Jua',
+                    fontSize: 18 * orthoScale,
+                    color: Colors.white
                   )
                 ),
               ]
@@ -528,8 +527,8 @@ class WeatherData {
                 width: (textIndex < 1) ? 80 * orthoScale : 100 * orthoScale,
                 decoration: BoxDecoration(
                   border: Border(
-                      top: BorderSide(width: 1 * orthoScale, color: Colors.white),
-                      bottom: BorderSide(width: 1 * orthoScale, color: Colors.white)
+                    top: BorderSide(width: 1 * orthoScale, color: Colors.white),
+                    bottom: BorderSide(width: 1 * orthoScale, color: Colors.white)
                   ),
                 ),
                 child: Center(

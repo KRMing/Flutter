@@ -4,7 +4,7 @@ import 'package:weather_app/models/weather_data.dart';
 import 'package:weather_app/models/display_argument.dart';
 import 'dart:async';
 
-class Home extends StatefulWidget {
+class Home extends StatefulWidget { // probably change to stateless widget
 
   @override
   _HomeState createState() => _HomeState();
@@ -49,7 +49,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void dispose() {
 
-    this._timer?.cancel();
     WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
@@ -109,12 +108,13 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               SizedBox(height: 5 * orthoScale),
               Center(
                 child: Text(
-                    displayArgs.description,
-                    style: TextStyle(
-                        fontFamily: 'Jua',
-                        fontSize: 20 * orthoScale,
-                        color: Colors.grey[200],
-                    )),
+                  displayArgs.description,
+                  style: TextStyle(
+                      fontFamily: 'Jua',
+                      fontSize: 20 * orthoScale,
+                      color: Colors.grey[200],
+                  )
+                ),
               ),
               Container(
                 width: double.infinity,
@@ -161,40 +161,42 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
               Container(
                 child: Center(
                   child: Text(
-                      '최고 ${displayArgs.tempMax}\u00b0 / 최저 ${displayArgs.tempMin}\u00b0',
-                      style: TextStyle(
-                        fontFamily: 'Jua',
-                        fontSize: 20 * orthoScale,
-                        color: Colors.grey[200],
-                      )),
+                    '최고 ${displayArgs.tempMax}\u00b0 / 최저 ${displayArgs.tempMin}\u00b0',
+                    style: TextStyle(
+                      fontFamily: 'Jua',
+                      fontSize: 20 * orthoScale,
+                      color: Colors.grey[200],
+                    )
+                  ),
                 ),
               ),
               SizedBox(height: 30 * orthoScale * orthoScale),
               Container(
                 color: Colors.indigo[bgIntensity - 300],
                 child: Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 15.0),
-                        margin: EdgeInsets.only(right: 160),
-                        child: Text(
-                            '오늘',
-                            style: TextStyle(
-                              fontFamily: 'Jua',
-                              fontSize: 20 * orthoScale,
-                              color: Colors.white,
-                            )),
-                      ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        padding: EdgeInsets.only(right: 15.0 * scale),
-                        margin: EdgeInsets.only(left: 165),
-                        child: Icon(
-                          Icons.insert_chart,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 15.0),
+                      margin: EdgeInsets.only(right: 160),
+                      child: Text(
+                        '오늘',
+                        style: TextStyle(
+                          fontFamily: 'Jua',
+                          fontSize: 20 * orthoScale,
                           color: Colors.white,
                         )
                       ),
-                    ]
+                    ),
+                    Container(
+                      alignment: Alignment.centerRight,
+                      padding: EdgeInsets.only(right: 15.0 * scale),
+                      margin: EdgeInsets.only(left: 165),
+                      child: Icon(
+                        Icons.insert_chart,
+                        color: Colors.white,
+                      )
+                    ),
+                  ]
                 ),
               ),
               Expanded(

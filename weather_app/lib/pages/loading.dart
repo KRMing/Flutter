@@ -7,7 +7,7 @@ import 'package:weather_app/utils/size_config.dart';
 import 'package:weather_app/utils/geolocator.dart';
 import 'package:weather_app/utils/api_manager.dart';
 
-class Loading extends StatefulWidget {
+class Loading extends StatefulWidget { // probably change to stateless widget
 
   @override
   _LoadingState createState() => _LoadingState();
@@ -36,7 +36,8 @@ class _LoadingState extends State<Loading> {
 
   void prepareScaling() async {
 
-    this.queryData = await MediaQuery.of(context);
+    this.queryData = MediaQuery.of(context);
+
     SizeConfig size = SizeConfig(this.queryData?.size.width, this.queryData?.size.height);
 
     scale = size.scaleFactor;
@@ -99,10 +100,10 @@ class _LoadingState extends State<Loading> {
             ),
             SizedBox(height: 20 * orthoScale),
             Center(
-                child: SpinKitDualRing(
-                  color: Colors.white,
-                  size: 50,
-                )
+              child: SpinKitDualRing(
+                color: Colors.white,
+                size: 50,
+              )
             ),
           ],
         ),

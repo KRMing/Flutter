@@ -41,6 +41,7 @@ class ApiManager {
         );
       }
       catch (imageError) {
+        print('SYSALERT - ERROR: error during network image fetching phase. Error: ${imageError}');
         tempImage = altImage;
       }
 
@@ -66,6 +67,7 @@ class ApiManager {
           );
         }
         catch (imageError) {
+          print('SYSALERT - ERROR: error during network image fetching phase. Error: ${imageError}');
           tempImage = altImage;
         }
 
