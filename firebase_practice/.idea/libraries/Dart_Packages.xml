@@ -184,6 +184,13 @@
             </list>
           </value>
         </entry>
+        <entry key="get_it">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="http">
           <value>
             <list>
@@ -350,6 +357,7 @@
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.0.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_bloc-7.2.0/lib" />
+      <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/get_it-7.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.3/lib" />
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../Flutter/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0/lib" />

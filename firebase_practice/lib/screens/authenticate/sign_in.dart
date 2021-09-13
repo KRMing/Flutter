@@ -1,3 +1,6 @@
+import 'package:firebase_practice/screens/authenticate/register.dart';
+import 'package:firebase_practice/screens/authenticate/sign_in_w_email.dart';
+import 'package:firebase_practice/screens/dummy_page/dummy.dart';
 import 'package:firebase_practice/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +12,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-
-  final AuthService _auth = AuthService();
+  String _email = '';
+  String _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +23,42 @@ class _SignInState extends State<SignIn> {
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: Text('Sign in to Brew Crew'),
+        actions: [
+          TextButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('Register'),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => Register()),
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-        child: ElevatedButton(
-          child: Text('Sign in anon'),
-          onPressed: () async {
-            dynamic result = await _auth.signInAnon();
-            if (result == null) {
-              print('error signing in');
-            }
-            else {
-              print('signed in');
-              print(result.toString());
-            }
-          },
+        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 50),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              child: Text('Sign in anon'),
+              onPressed: () async {
+                dynamic result = await AuthService().signInAnon();
+                if (result == null) {
+                  print('error signing in');
+                }
+              },
+            ),
+            TextButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Sign in'),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => SignInEmail()),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
