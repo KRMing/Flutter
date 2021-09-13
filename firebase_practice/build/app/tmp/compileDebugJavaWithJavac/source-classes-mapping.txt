@@ -1,4 +1,0 @@
-io/flutter/plugins/GeneratedPluginRegistrant.java
- io.flutter.plugins.GeneratedPluginRegistrant
-com/krming/firebase_practice/BuildConfig.java
- com.krming.firebase_practice.BuildConfig
