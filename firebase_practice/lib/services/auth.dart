@@ -24,11 +24,12 @@ class AuthService {
   Future signInAnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
+      print(result.credential.runtimeType);
       return _firebaseUserFromUser(result.user);
     }
-    catch (e) {
-      print(e.toString());
-      return null;
+    on FirebaseAuthException catch (e) {
+      print(e.code);
+      return e.code;
     }
   }
 
@@ -38,9 +39,10 @@ class AuthService {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       return _firebaseUserFromUser(result.user);
     }
-    catch (e) {
-      print(e.toString());
-      return null;
+    on FirebaseAuthException catch (e) {
+      print('exception');
+      print(e.code);
+      return e.code;
     }
   }
 
@@ -50,9 +52,9 @@ class AuthService {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       return _firebaseUserFromUser(result.user);
     }
-    catch (e) {
-      print(e.toString());
-      return null;
+    on FirebaseAuthException catch (e) {
+      print(e.code);
+      return e.code;
     }
   }
 
@@ -61,9 +63,9 @@ class AuthService {
     try {
       return await _auth.signOut();
     }
-    catch (e) {
-      print(e.toString());
-      return null;
+    on FirebaseAuthException catch (e) {
+      print(e.code);
+      return e.code;
     }
   }
 }

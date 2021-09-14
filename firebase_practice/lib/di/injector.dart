@@ -10,10 +10,18 @@ class Injector {
 
   static GlobalKey<NavigatorState> get navigatorKey => _instance.get<GlobalKey<NavigatorState>>();
 
+  static GlobalKey<FormState> get formKey => _instance.get<GlobalKey<FormState>>();
+
   static void registerObjects() {
     {
       _instance.registerSingleton<GlobalKey<NavigatorState>>(
         GlobalKey<NavigatorState>(),
+      );
+    }
+
+    {
+      _instance.registerSingleton<GlobalKey<FormState>>(
+        GlobalKey<FormState>(),
       );
     }
   }
