@@ -44,3 +44,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+/Users/Ming/Documents/dev/Github.nosync/Flutter/typit_vanilla/android/app/google-services.json
+/Users/Ming/Documents/dev/Github.nosync/Flutter/typit_vanilla/ios/Runner/GoogleService-Info.plist
