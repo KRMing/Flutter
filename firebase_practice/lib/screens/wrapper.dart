@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:firebase_practice/screens/authenticate/authenticate.dart';
 import 'package:firebase_practice/screens/home/home.dart';
 import 'package:firebase_practice/exports.dart';

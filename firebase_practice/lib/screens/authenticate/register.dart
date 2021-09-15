@@ -1,5 +1,3 @@
-import 'package:firebase_practice/di/injector.dart';
-import 'package:firebase_practice/screens/authenticate/sign_in.dart';
 import 'package:firebase_practice/screens/authenticate/sign_in_w_email.dart';
 import 'package:firebase_practice/screens/home/home.dart';
 import 'package:firebase_practice/services/auth.dart';
@@ -134,7 +132,7 @@ class _RegisterState extends State<Register> {
         _errorText = 'access temporarily blocked due to too many requests';
         break;
       default:
-        print('uncaught case: ${code}, please debug');
+        print('uncaught case: $code, please debug');
         break;
     }
     _rebuild(_errorText);

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_practice/models/user.dart';
+import 'package:firebase_practice/services/database.dart';
 
 class AuthService {
   AuthService._();
@@ -50,6 +50,7 @@ class AuthService {
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await DatabaseService(uid: result.user?.uid).updateUserData('0', 'new crew member', 100);
       return _firebaseUserFromUser(result.user);
     }
     on FirebaseAuthException catch (e) {

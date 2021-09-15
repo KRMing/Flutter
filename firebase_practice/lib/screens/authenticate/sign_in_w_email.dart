@@ -1,6 +1,4 @@
-import 'package:firebase_practice/di/injector.dart';
 import 'package:firebase_practice/screens/authenticate/register.dart';
-import 'package:firebase_practice/screens/authenticate/sign_in.dart';
 import 'package:firebase_practice/screens/home/home.dart';
 import 'package:firebase_practice/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +131,7 @@ class _SignInEmailState extends State<SignInEmail> {
         _errorText = 'access temporarily blocked due to too many requests';
         break;
       default:
-        print('uncaught case: ${code}, please debug');
+        print('uncaught case: $code, please debug');
         break;
     }
     _rebuild(_errorText);

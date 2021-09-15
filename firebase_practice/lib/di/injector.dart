@@ -1,5 +1,3 @@
-import 'package:firebase_practice/screens/authenticate/authenticate.dart';
-import 'package:firebase_practice/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 

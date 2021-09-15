@@ -1,6 +1,5 @@
 import 'package:firebase_practice/screens/authenticate/register.dart';
 import 'package:firebase_practice/screens/authenticate/sign_in_w_email.dart';
-import 'package:firebase_practice/screens/dummy_page/dummy.dart';
 import 'package:firebase_practice/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +11,6 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  String _email = '';
-  String _password = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
